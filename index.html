@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGUYỄN LONG - TỐI ƯU MÁY & REGEDIT & UNLOCK FPS</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #a855f7;
+            --primary-glow: #c084fc;
+            --accent: #06b6d4;
+            --bg-dark: #090514;
+            --card-bg: rgba(18, 10, 36, 0.75);
+            --border-glow: rgba(168, 85, 247, 0.4);
+            --text-main: #f3f4f6;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Video Background */
+        .video-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-bg {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.4) contrast(1.2);
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(9, 5, 20, 0.3) 0%, rgba(9, 5, 20, 0.85) 100%);
+            z-index: -1;
+        }
+
+        /* Hiệu ứng gợn sóng (Ripple Effect) khi Click */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(192, 132, 252, 0.7) 0%, rgba(6, 182, 212, 0) 70%);
+            transform: scale(0);
+            animation: ripple-effect 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-effect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        button, a, .card, .social-btn, .hero-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Header / Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(15, 7, 32, 0.6);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .logo span {
+            color: var(--primary-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            color: white;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+        }
+
+        .btn-tiktok {
+            background: #000;
+            color: white;
+            border: 1px solid #fe2c55;
+            box-shadow: 0 0 15px rgba(254, 44, 85, 0.3);
+        }
+
+        .btn-bio {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.2rem;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 20px var(--primary-glow), 0 0 40px var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            color: #d1d5db;
+            margin-bottom: 30px;
+        }
+
+        .hero-btn {
+            padding: 14px 35px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .hero-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+        }
+
+        /* Products Section */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 60px 20px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .category-group {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            padding-left: 12px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 22px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary-glow);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .card-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #4ade80;
+            font-weight: 800;
+        }
+
+        .buy-btn {
+            width: 100%;
+            margin-top: 18px;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--primary-glow);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .buy-btn {
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* Modal Payment */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: rgba(20, 10, 40, 0.95);
+            border: 1px solid var(--primary-glow);
+            border-radius: 20px;
+            max-width: 480px;
+            width: 100%;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.6);
+            text-align: center;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .qr-img {
+            width: 220px;
+            height: 220px;
+            margin: 12px auto;
+            border-radius: 12px;
+            border: 2px solid var(--accent);
+            padding: 5px;
+            background: #fff;
+        }
+
+        .alert-warning {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid var(--danger);
+            border-radius: 10px;
+            padding: 12px;
+            margin: 15px 0;
+            color: #fca5a5;
+            font-weight: 800;
+            font-size: 1rem;
+            line-height: 1.4;
+            animation: pulse-border 1.5s infinite alternate;
+        }
+
+        @keyframes pulse-border {
+            from { box-shadow: 0 0 5px rgba(239, 68, 68, 0.4); }
+            to { box-shadow: 0 0 20px rgba(239, 68, 68, 0.9); }
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+            margin-top: 5px;
+        }
+
+        .confirm-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.8);
+        }
+
+        .receipt-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed var(--accent);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: left;
+            margin: 15px 0;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: rgba(10, 5, 20, 0.9);
+            border-top: 1px solid var(--border-glow);
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Background -->
+    <div class="video-bg-container">
+        <video class="video-bg" autoplay loop muted playsinline>
+            <source src="background.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">NGUYỄN<span>LONG</span></div>
+        <div class="nav-links">
+            <a href="https://spoo.me/nlong281" target="_blank" class="social-btn btn-bio">
+                <i class="fas fa-address-card"></i> Bio
+            </a>
+            <a href="https://discord.gg/HUFUe6tn" target="_blank" class="social-btn btn-discord">
+                <i class="fab fa-discord"></i> Discord
+            </a>
+            <a href="https://www.tiktok.com/@nglong28113?_r=1&_t=ZS-9AgZmw4O1IK" target="_blank" class="social-btn btn-tiktok">
+                <i class="fab fa-tiktok"></i> TikTok
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>DỊCH VỤ TỐI ƯU PC & GIẢ LẬP</h1>
+        <p>Tăng FPS, Giảm Lag, Tối Ưu Win & Regedit Chuẩn Chuột Cho Gamers Free Fire / Valorant</p>
+        <a href="#products" class="hero-btn">XEM SẢN PHẨM</a>
+    </section>
+
+    <!-- Products -->
+    <div class="container" id="products">
+        <h2 class="section-title">DANH MỤC SẢN PHẨM</h2>
+
+        <!-- Tối Ưu Máy -->
+        <div class="category-group">
+            <h3 class="category-title"><i class="fas fa-tachometer-alt"></i> TỐI ƯU MÁY BÀN / LAPTOP</h3>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <div class="card-title">Tối Ưu Máy Toàn Diện</div>
+                        <p style="color:#aaa; font-size: 0.9rem;">Clean OS, Dọn Dẹp Service, Tối Ưu RAM & GPU</p>
+                    </div>
+                    <div>
+                        <div class="card-price" style="margin-top: 15px;">50.000 VNĐ</div>
+                        <button class="buy-btn" onclick="openPayment('Tối Ưu Máy Toàn Diện', 50000)">MUA NGAY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Regedit -->
+        <div class="category-group">
+            <h3 class="category-title"><i class="fas fa-crosshairs"></i> REGEDIT TĂNG ĐỘ NHẠY / KÉO TÂM</h3>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <div class="card-title">Regedit Gói VIP 1</div>
+                        <p style="color:#aaa; font-size: 0.9rem;">Hỗ trợ kéo tâm mượt hơn</p>
+                    </div>
+                    <div>
+                        <div class="card-price" style="margin-top: 15px;">50.000 VNĐ</div>
+                        <button class="buy-btn" onclick="openPayment('Regedit Gói VIP 1', 50000)">MUA NGAY</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="card-title">Regedit Gói VIP 2</div>
+                        <p style="color:#aaa; font-size: 0.9rem;">Ổn định đạn & Giảm khựng tâm</p>
+                    </div>
+                    <div>
+                        <div class="card-price" style="margin-top: 15px;">100.000 VNĐ</div>
+                        <button class="buy-btn" onclick="openPayment('Regedit Gói VIP 2', 100000)">MUA NGAY</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="card-title">Regedit Gói Pro</div>
+                        <p style="color:#aaa; font-size: 0.9rem;">Tối ưu sâu Registry hệ thống</p>
+                    </div>
+                    <div>
+                        <div class="card-price" style="margin-top: 15px;">200.000 VNĐ</div>
+                        <button class="buy-btn" onclick="openPayment('Regedit Gói Pro', 200000)">MUA NGAY</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="card-title">Regedit Gói Ultimate</div>
+                        <p style="color:#aaa; font-size: 0.9rem;">Max Option Tối Ưu Kéo Tâm</p>
+                    </div>
+                    <div>
+                        <div class="card-price" style="margin-top: 15px;">300.000 VNĐ</div>
+                        <button class="buy-btn" onclick="openPayment('Regedit Gói Ultimate', 300000)">MUA NGAY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unlock FPS -->
+        <div class="category-group">
+            <h3 class="category-title"><i class="fas fa-gamepad"></i> UNLOCK FPS + LOCK FPS GIẢ LẬP</h3>
+            <div class="grid">
+                <div class="card">
+                    <div>
+                        <div class="card-title">Unlock FPS - Gói Cơ Bản</div>
+                        <p style="color:#aaa; font-size: 0.9rem;">Mở khóa 90-120 FPS BlueStacks/MSI</p>
+                    </div>
+                    <div>
+                        <div class="card-price" style="margin-top: 15px;">100.000 VNĐ</div>
+                        <button class="buy-btn" onclick="openPayment('Unlock FPS - Gói Cơ Bản', 100000)">MUA NGAY</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="card-title">Unlock FPS - Gói Nâng Cao</div>
+                        <p style="color:#aaa; font-size: 0.9rem;">Lock FPS mượt, giảm drop trần</p>
+                    </div>
+                    <div>
+                        <div class="card-price" style="margin-top: 15px;">200.000 VNĐ</div>
+                        <button class="buy-btn" onclick="openPayment('Unlock FPS - Gói Nâng Cao', 200000)">MUA NGAY</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="card-title">Unlock FPS - Gói VIP Super</div>
+                        <p style="color:#aaa; font-size: 0.9rem;">Tối ưu Frame Time + Lossless Scaling</p>
+                    </div>
+                    <div>
+                        <div class="card-price" style="margin-top: 15px;">300.000 VNĐ</div>
+                        <button class="buy-btn" onclick="openPayment('Unlock FPS - Gói VIP Super', 300000)">MUA NGAY</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="card-title">Unlock FPS - Gói Max Performance</div>
+                        <p style="color:#aaa; font-size: 0.9rem;">Gói Toàn Diện Cực Hạn Cho Giả Lập</p>
+                    </div>
+                    <div>
+                        <div class="card-price" style="margin-top: 15px;">400.000 VNĐ</div>
+                        <button class="buy-btn" onclick="openPayment('Unlock FPS - Gói Max Performance', 400000)">MUA NGAY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Thanh Toán -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <!-- Step 1: Quét Mã QR -->
+            <div id="paymentStep">
+                <h3 id="modalTitle" style="color: var(--accent); font-size: 1.4rem; margin-bottom: 5px;"></h3>
+                <p id="modalPrice" style="color: #4ade80; font-family: 'Orbitron'; font-size: 1.3rem; font-weight: bold;"></p>
+                
+                <img id="qrImage" class="qr-img" src="" alt="VietQR Vietcombank">
+
+                <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; font-size: 0.9rem; margin-bottom: 10px;">
+                    <div>Ngân hàng: <strong>Vietcombank</strong></div>
+                    <div>STK: <strong>1015655506</strong></div>
+                    <div>Chủ TK: <strong>NGUYEN LONG</strong></div>
+                    <div>Nội dung CK: <strong id="txCodeDisplay" style="color: var(--warning);"></strong></div>
+                </div>
+
+                <div class="alert-warning">
+                    ⚠️ SAU KHI BANK LƯU LẠI BILL NÀY + HÌNH ĐÃ CHUYỂN KHỎAN<br>(FAKE BILL KO NHẬN)
+                </div>
+
+                <button class="confirm-btn" onclick="confirmPayment()">
+                    <i class="fas fa-file-invoice"></i> XUẤT BILL TỰ ĐỘNG
+                </button>
+            </div>
+
+            <!-- Step 2: Hóa Đơn (Bill) -->
+            <div id="billStep" style="display: none;">
+                <i class="fas fa-check-circle" style="font-size: 45px; color: #4ade80; margin-bottom: 10px;"></i>
+                <h3 style="color: #fff; font-family: 'Orbitron';">HÓA ĐƠN XÁC NHẬN</h3>
+                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Lưu lại Bill này + Ảnh giao dịch gửi qua Discord hoặc TikTok!</p>
+
+                <div class="receipt-card">
+                    <div class="receipt-row"><span>Mã Bill:</span> <strong id="billTxCode" style="color: var(--warning);"></strong></div>
+                    <div class="receipt-row"><span>Sản Phẩm:</span> <strong id="billProduct"></strong></div>
+                    <div class="receipt-row"><span>Số Tiền:</span> <strong id="billAmount" style="color: #4ade80;"></strong></div>
+                    <div class="receipt-row"><span>Thời Gian:</span> <strong id="billTime"></strong></div>
+                    <div class="receipt-row"><span>Trạng Thái:</span> <strong style="color: #60a5fa;">ĐỜI GỬI ẢNH CHUYỂN KHỎAN</strong></div>
+                </div>
+
+                <a href="https://discord.gg/HUFUe6tn" target="_blank" class="social-btn btn-discord" style="display: block; text-align: center; margin-bottom: 10px;">
+                    <i class="fab fa-discord"></i> GỬI BILL QUA DISCORD
+                </a>
+                
+                <a href="https://www.tiktok.com/@nglong28113?_r=1&_t=ZS-9AgZmw4O1IK" target="_blank" class="social-btn btn-tiktok" style="display: block; text-align: center;">
+                    <i class="fab fa-tiktok"></i> LIÊN HỆ QUA TIKTOK
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 NGUYỄN LONG - Dịch Vụ Tối Ưu Máy Tính & Giả Lập Uy Tín.</p>
+    </footer>
+
+    <script>
+        const BANK_INFO = {
+            bankId: 'VCB',
+            accountNo: '1015655506',
+            accountName: 'NGUYEN LONG'
+        };
+
+        let currentProduct = {};
+        let currentTxCode = '';
+
+        function openPayment(title, price) {
+            currentProduct = { title, price };
+            currentTxCode = 'NGLONG' + Math.floor(100000 + Math.random() * 900000);
+            
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = price.toLocaleString('vi-VN') + ' VNĐ';
+            document.getElementById('txCodeDisplay').innerText = currentTxCode;
+            
+            // VietQR Dynamic URL Generator
+            const qrUrl = `https://img.vietqr.io/image/${BANK_INFO.bankId}-${BANK_INFO.accountNo}-compact2.png?amount=${price}&addInfo=${encodeURIComponent(currentTxCode)}&accountName=${encodeURIComponent(BANK_INFO.accountName)}`;
+            document.getElementById('qrImage').src = qrUrl;
+
+            // Reset step view
+            document.getElementById('paymentStep').style.display = 'block';
+            document.getElementById('billStep').style.display = 'none';
+
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        function confirmPayment() {
+            const now = new Date();
+            const timeStr = now.toLocaleDateString('vi-VN') + ' ' + now.toLocaleTimeString('vi-VN');
+
+            // Render Bill Info
+            document.getElementById('billTxCode').innerText = currentTxCode;
+            document.getElementById('billProduct').innerText = currentProduct.title;
+            document.getElementById('billAmount').innerText = currentProduct.price.toLocaleString('vi-VN') + ' VNĐ';
+            document.getElementById('billTime').innerText = timeStr;
+
+            // Switch UI to Receipt
+            document.getElementById('paymentStep').style.display = 'none';
+            document.getElementById('billStep').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        // Close modal when click outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // JavaScript tạo hiệu ứng gợn sóng (Ripple Effect) khi click chuột vào nút hoặc card
+        document.addEventListener('click', function (e) {
+            const target = e.target.closest('button, a, .card');
+            if (!target) return;
+
+            const circle = document.createElement('span');
+            circle.classList.add('ripple');
+            
+            const rect = target.getBoundingClientRect();
+            const diameter = Math.max(rect.width, rect.height);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${e.clientX - rect.left - radius}px`;
+            circle.style.top = `${e.clientY - rect.top - radius}px`;
+
+            target.appendChild(circle);
+
+            setTimeout(() => {
+                circle.remove();
+            }, 600);
+        });
+    </script>
+</body>
+</html>
